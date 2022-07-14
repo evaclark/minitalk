@@ -1,36 +1,24 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: eclark <marvin@42.fr>                      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/28 11:28:43 by eclark            #+#    #+#              #
-#    Updated: 2022/04/08 11:23:46 by eclark           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-NAME = libftprintf.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -c
+CFLAGS = -Wall -Wextra -Werror -I $(PRINTF) -L $(PRINTF) -l $(LIB)
 RM = rm -f
 
-SRCS = ft_putchar.c ft_putstr.c ft_putnbr.c ft_puthexl.c \
-		ft_puthexu.c ft_puthexp.c ft_putunsigned.c ft_printf.c
-OBJS = $(SRCS:.c=.o)
+PRINTF = ft_printf
+LIB = ftprintf
+SERVER = server
+CLIENT = client
 
-all: $(NAME)
-
-$(NAME):
-	$(CC) $(CFLAGS) $(SRCS)
-	ar rcs $(NAME) $(OBJS)
+all:
+	@make -s -C $(PRINTF)
+	$(CC) $(CFLAGS) server.c -o $(SERVER)
+	$(CC) $(CFLAGS) client.c -o $(CLIENT)
 
 clean:
-	$(RM) $(OBJS)
+	@make clean -s -C $(PRINTF)
 
-fclean: clean
-	$(RM) $(NAME)
+fclean:
+	@make fclean -s -C $(PRINTF)
+	$(RM) $(SERVER) $(CLIENT)
 
-re: fclean all
+re: all fclean
 
 .PHONY: all clean fclean re
