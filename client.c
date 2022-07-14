@@ -6,7 +6,7 @@
 /*   By: eclark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 11:53:42 by eclark            #+#    #+#             */
-/*   Updated: 2022/07/13 23:28:55 by eclark           ###   ########.fr       */
+/*   Updated: 2022/07/14 14:07:24 by eclark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,35 @@ size_t  ft_strlen(char *str)
     return (i);
 }
 
-void send(pid_t my_pid, char *array, size_t arr_len)
+
+int	ft_atoi(const char *str)
+{
+	int	sum;
+	int	sign;
+
+	sum = 0;
+	sign = 1;
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+	{
+		str++;
+	}
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+		{
+			sign = sign * -1;
+		}
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		sum = sum * 10 + *str - '0';
+		str++;
+	}
+	return (sum * sign);
+}
+
+void send(int my_pid, char *array, size_t arr_len)
 {
     size_t  i;
     int     shift;
@@ -49,7 +77,7 @@ void send(pid_t my_pid, char *array, size_t arr_len)
             /*SIGUSR2 represents a 0, SIGUSR1 represents a 1*/
             else
             {
-                kill(my_pid, SIGUSR1);
+				kill(my_pid, SIGUSR1);
             }
             shift++;
             usleep(200);
@@ -64,7 +92,7 @@ int main (int argc, char **argv)
         ft_printf("%s\n", "only input one string please :)");
     else
     {
-        send(getpid(), argv[2], ft_strlen(argv[2]));
+        send(ft_atoi(argv[1]), argv[2], ft_strlen(argv[2]));
     }
     return (0);
 }
