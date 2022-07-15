@@ -6,7 +6,7 @@
 /*   By: eclark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 11:53:42 by eclark            #+#    #+#             */
-/*   Updated: 2022/07/14 14:07:24 by eclark           ###   ########.fr       */
+/*   Updated: 2022/07/13 23:28:55 by eclark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void send(int my_pid, char *array, size_t arr_len)
     int     shift;
 
     i = 0;
-    while (i < arr_len)
+    while (i <= arr_len)
     {
         shift = 0;
         while (shift < 7)
@@ -70,7 +70,7 @@ void send(int my_pid, char *array, size_t arr_len)
             binary value.
             -eg, ascii value of a = 97, 97 << 0 == 97, 97 in binary is 01100001
             therefore 97 & 1 == 1. 97 << 1 == 47, == 00110000, 48 & 1 == 0*/
-            if((array[i] << shift) & 1)
+            if((array[i] >> shift) & 1)
             {
                 kill(my_pid, SIGUSR2);
             }
@@ -80,7 +80,7 @@ void send(int my_pid, char *array, size_t arr_len)
 				kill(my_pid, SIGUSR1);
             }
             shift++;
-            usleep(200);
+	usleep(200);
         }
         i++;
     }
