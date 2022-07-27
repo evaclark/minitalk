@@ -50,7 +50,21 @@ int	ft_atoi(const char *str)
 	}
 	return (sum * sign);
 }
-
+/* this function will take each character from the string and convert it 
+ * into it's binary ascii form, although a char is 8 bits one bit is held
+ * for a sign, so we only send 7 bits eg 7 signals for each character.
+ * eg. array[1] = A = 1000001
+ * (array[1] >> 0) & 1
+ * = 65 & 1 = 1
+ * Shift increases
+ * (array[1] >> 1) & 1
+ * = 32 & 1 = 0
+ * (array[1] >> 2) & 1
+ * = 16 & 1 = 0
+ * ...
+ * (array[1] >> 6) & 1
+ * = 1 & 1 = 1
+ * = 10000001 sent for char A */
 void	send(int my_pid, char *array, int arr_len)
 {
 	int	i;
