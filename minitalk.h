@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eclark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 13:49:51 by eclark            #+#    #+#             */
-/*   Updated: 2022/07/21 14:24:30 by eclark           ###   ########.fr       */
+/*   Created: 2022/07/26 10:40:21 by eclark            #+#    #+#             */
+/*   Updated: 2022/07/26 12:45:31 by eclark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef MINITALK_H
+# define MINITALK_H
 
-int	ft_putnbr(int nb)
+# include <stdlib.h>
+# include <signal.h>
+# include "ft_printf.h"
+
+typedef struct s_data
 {
-	int	i;
+	size_t	i;
+	char	c;
+}				t_data;
 
-	i = 0;
-	if (nb == -2147483648)
-	{
-		write(1, "-2147483648", 11);
-		i = 11;
-	}
-	else if (nb < 0)
-	{
-		i += ft_putchar('-');
-		nb = nb * -1;
-		i += ft_putnbr(nb);
-	}
-	else if (nb > 9)
-	{
-		i += ft_putnbr(nb / 10);
-		i += ft_putnbr(nb % 10);
-	}
-	else
-		i += ft_putchar(nb + 48);
-	return (i);
-}
+t_data	g_msg;
+
+#endif
