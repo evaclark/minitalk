@@ -5,4 +5,5 @@ This project tasks you to create a program that will communicate between a clien
 Compile using make all
 
 To activate server: ./server
+
 On a seperate window use client: ./client "PID from server output" "what you want to write"
