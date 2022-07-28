@@ -85,7 +85,7 @@ void	send(int my_pid, char *array, int arr_len)
 				kill(my_pid, SIGUSR1);
 			}
 			shift++;
-			usleep(300);
+			usleep(200);
 		}
 		i++;
 	}
@@ -93,18 +93,16 @@ void	send(int my_pid, char *array, int arr_len)
 
 int	main(int argc, char **argv)
 {
-	int		my_pid;
-	char	*str;
+	int	my_pid;
 
-	if (argc == 3)
+	if (argc != 3)
 	{
-		my_pid = ft_atoi(argv[1]);
-		str = argv[2];
-		send(my_pid, str, ft_strlen(str));
+		ft_printf("%s\n", "Please input three arguments only :)");
 	}
 	else
 	{
-		ft_printf("%s\n", "Please input three arguments only :)");
+		my_pid = ft_atoi(argv[1]);
+		send(my_pid, argv[2], ft_strlen(argv[2]));
 	}
 	return (0);
 }
